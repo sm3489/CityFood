@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!--作者：掘金小朋友
+    链接：https://juejin.cn/post/6902323049513615374
+    来源：稀土掘金
+    著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。-->
+
+    <meta charset="UTF-8" />
+    <link rel="shortcut icon" href="#">
+    <title>babel-standalone import、export 的使用</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!--react-->
+    <!--babel-standalone 如何使用多个import、export  https://juejin.cn/post/6902323049513615374 -->
+
+</head>
+
+<body>
+    <main id="main"></main>
+
+
+
+    <!--<script src="https://unpkg.com/history@5.1.0/umd/history.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/@remix-run/router@1.3.0/dist/router.umd.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-router@6.7.0/dist/umd/react-router.development.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/react-router-dom@6.7.0/dist/umd/react-router-dom.development.js" crossorigin="anonymous"></script>-->
+    <!--<script src="https://unpkg.com/babel-standalone@6/babel.min.js" crossorigin="anonymous"></script>-->
+    <!--<script src="https://unpkg.com/@babel/standalone@7.12.9/babel.min.js" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/css/bootstrap.min.css" integrity="sha512-6KY5s6UI5J7SVYuZB4S/CZMyPylqyyNZco376NM2Z8Sb8OxEdp02e1jkKk/wZxIEmjQ6DRCEBhni+gpr9c4tvA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.1/js/bootstrap.bundle.min.js" integrity="sha512-trzlduO3EdG7Q0xK4+A+rPbcolVt37ftugUSOvrHhLR5Yw5rsfWXcpB3CPuEBcRBCHpc+j18xtQ6YrtVPKCdsg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/2.9.2/react-bootstrap.min.js" integrity="sha512-wNDLsNGwX8AMZLwX3fEvh6vc7dicHVKzmz1TbDAv2ssoh7i7Hb8qy+FuOsHDeRr5PLRhvf9CQwNy/7ljOllTcw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>-->
+
+    <script crossorigin="anonymous" src="./lib/history.development.5.1.0.js"></script>
+    <script crossorigin="anonymous" src="./lib/react.development.17.0.2.js"></script>
+    <script crossorigin="anonymous" src="./lib/react-dom.development.17.0.2.js"></script>
+    <script crossorigin="anonymous" src="./lib/router.umd.1.3.0.min.js"></script>
+    <script crossorigin="anonymous" src="./lib/react-router.development.6.7.0.js"></script>
+    <script crossorigin="anonymous" src="./lib/react-router-dom.development.6.7.0.js"></script>
+    <script crossorigin="anonymous" src="./lib/babel.7.18.9.min.js"></script>
+
+    <link href="./lib/bootstrap.5.1.1.min.css" rel="stylesheet" />
+    <script crossorigin="anonymous" src="./lib/bootstrap.bundle.5.1.1.min.js"></script>
+    <script crossorigin="anonymous" src="./lib/react-bootstrap.2.9.2.min.js"></script>
+
+
+    <script>
+        (function () {
+            function importJSX(src, look_for, onload) {
+                var s = document.createElement('script');
+                s.setAttribute('type', 'text/babel');
+                s.setAttribute('data-plugins', 'transform-modules-umd');
+                s.setAttribute('src', src);
+                if (onload) wait_for_script_load(look_for, onload);
+                if (eval("typeof " + look_for) == 'undefined') {
+                    var head = document.getElementsByTagName('head')[0];
+                    if (head) head.appendChild(s);
+                    else document.body.appendChild(s);
+                }
+            }
+            function wait_for_script_load(look_for, callback) {
+                var interval = setInterval(function () {
+                    if (eval("typeof " + look_for) != 'undefined') {
+                        clearInterval(interval);
+                        callback();
+                    }
+                }, 50);
+            }
+
+            let componentsJSX = [
+                "Navbar.jsx",
+                "CustomButton.jsx",
+                "CustomModal.jsx",
+                "InputPattern.jsx",
+                "ItemCard.jsx",
+                "PositionBar.jsx",
+                "TitleBar.jsx",]
+            let pageJSX = [
+                'AdminBackstage.jsx',
+                'AdminLogin.jsx',
+                'BreakfastDetail.jsx',
+                'Cart.jsx',
+                'Checkout.jsx',
+                'Home.jsx',
+                'Login.jsx',
+                'Menu.jsx',
+                'OrderConfirm.jsx',
+                'OrderHistory.jsx',
+                'Register.jsx',
+                'ShopLogin.jsx',
+                'ShopRegister.jsx',
+                'User.jsx']
+
+            componentsJSX.forEach((ths) => {
+                importJSX("./work/Components/" + ths, "App", null);
+            })
+            pageJSX.forEach((ths) => {
+                importJSX("./work/Pages/" + ths, "App", null);
+            })
+            importJSX("App9.jsx", "App", null);
+        })();
+    </script>
+
+    <div id="output"></div>
+    <div id="root"></div>
+    <script type="text/babel"
+            data-plugins="transform-modules-umd"
+            data-module="userInfo">
+        export default {
+          name: '小朋友',
+          age: 18,
+        };
+    </script>
+
+    <script type="text/babel" data-plugins="transform-modules-umd">
+        import userInfo from 'userInfo';
+        import { BrowserRouter as Router, Routes, Route, Link } from "ReactRouterDOM";
+        import {App}  from './App9';
+
+
+        console.log('Start react');
+
+        let Txt=()=>
+        <div>Tetxt</div>
+        let Home=()=>
+        <div>Home</div>
+        let Menu=()=>
+        <div>Menu</div>
+        let About=()=>
+        <div>About</div>
+
+            //建立一個DOM物件
+            let element = <h1>Hello, React! <Txt /></h1>
+
+
+            function Rou() {
+                return (
+                    <div>
+                        <Router>
+                            <Routes>
+                                <Route index path="/" element={<Txt />} />
+                                <Route path="/home" element={<Home />} />
+                                <Route path="/menu" element={<Menu />} />
+                                <Route path="/about" element={<About />} />
+                            </Routes>
+
+                             <Link
+                                to="/home"
+                                className="nav-link text-blue"
+                                aria-current="page"
+                            >
+                                首頁
+                            </Link>
+                            <span> __ </span>
+                            <Link to="/menu" className="nav-link text-blue">
+                                菜單瀏覽
+                            </Link>
+                            <App />
+                        </Router>
+                    </div>
+                );
+            }
+
+            //使用ReactDOM.render把剛建立的物件element插入目標DOM中
+            ReactDOM.render(
+            <App />,
+                document.getElementById('root')
+            );
+            document.getElementById('output').innerHTML = `Hello ${userInfo.name} ${userInfo.age}歲`;
+
+
+
+    </script>
+
+
+</body>
+
+</html>
