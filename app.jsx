@@ -1,4 +1,5 @@
 import { render } from "./lib/react-dom.development.17.0.2";
+import { OrderPage } from "./test2Order";
 
 let t1 = [{ aa: 333 }, { aa: 1333 }, { aa: 2333 }, { aa: 3333 }]
 //t1.map((catObj, index) =>
@@ -481,8 +482,7 @@ let GuideModal = () =>
         </div>
     </div>
 
-
-export let App = () =>
+let OrderPage2 =()=>
     <div>
         <HeaderPage />
         <div className="main-content">
@@ -509,6 +509,14 @@ export let App = () =>
         <GuideModal />
     </div>
 
+
+export let App = () =>
+    <div>
+        <HeaderPage />
+        asfasfd
+        <FooterPage />
+    </div>
+    
         //<div>
         //    <ProductModal />
         //    <CartModal />

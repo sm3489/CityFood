@@ -34,6 +34,7 @@
 
     <script src="./food.js"></script>
     <script src="./all_test2.js"></script>
+
 </head>
 
 <body>
@@ -43,6 +44,8 @@
     <!--記得要設定type="text/babel"-->
     <!--<script type="text/javascript">-->
     <!--js 載入 的順序也很重要(向依性)  -->
+    
+    <script type="text/babel" data-plugins="transform-modules-umd" src="./test2Order.jsx"></script>
     <script type="text/babel" data-plugins="transform-modules-umd" src="./app.jsx"></script>
     <script type="text/babel" data-plugins="transform-modules-umd">
         import {App} from './app';
